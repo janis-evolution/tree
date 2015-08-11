@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require handlebars
+//= require core/Evolution
 //= require_tree .

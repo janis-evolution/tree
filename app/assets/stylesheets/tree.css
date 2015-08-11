@@ -1,0 +1,80 @@
+.tree
+{
+	padding: 30px 0;
+}
+.tree .body
+{
+	border: 1px solid gray;
+	display: inline-block;
+	padding: 15px 0 15px 15px;
+	position: relative;
+}
+.tree .body > div
+{
+	display: inline-block;
+}
+.tree .body .name
+{
+	color: gray;
+}
+.tree .body > button[name="add_before"],
+.tree .body > button[name="add_after"]
+{
+	position: absolute;
+	left: 10px;
+}
+.tree .body > button[name="add_before"]
+{
+	top: -12px;
+}
+.tree .body > button[name="add_after"]
+{
+	bottom: -11px;
+}
+.tree .node + .node
+{
+	margin-top: -1px;
+}
+.tree .children
+{
+	padding: 15px 0 15px 45px;
+	border-left: 1px solid #DADADA;
+}
+.tree .children:empty
+{
+	padding-top: 0;
+	padding-bottom: 0;
+}
+.node[data-uuid="root"] > .children,
+.tree .node:last-child > .children
+{
+	border-left-color: transparent;
+}
+.tree .hierarchy_no
+{
+	margin-right: 5px;
+}
+.node[data-uuid="root"] > .children:not(:empty) + button
+{
+	display: none;
+}
+.tree .node button[name="add"]:only-child
+{
+	sdisplay: none;
+}
+.tree button[name="add_before"],
+.tree button[name="add_after"]
+{
+	border: 1px solid gray;
+	background-color: white;
+	sopacity: 0;
+	position: relative;
+	z-index: 2;
+	border-radius: 11px;
+	text-decoration: none;
+}
+.tree .children > button:only-child,
+.tree .children > button:hover
+{
+	opacity: 1;
+}

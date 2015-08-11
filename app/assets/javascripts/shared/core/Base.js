@@ -380,4 +380,41 @@
 		}
 	};
 	
+	/*
+	 * destroy()
+	 */
+	Evolution[ class_name ].prototype.destroy = function()
+	{
+		this.deleted = true;
+		// reflect changes to the dom
+		this.trigger( 'destroy' );
+		// and to the database
+		this.trigger( 'obliterate' );
+	}
+	
+	/*
+	 * to_post_data()
+	 *
+	 * returns an object containing only saveable properties
+	 */
+	Evolution[ class_name ].prototype.to_post_data = function( since )
+	{
+		var self = this;
+		var values = {};
+		var changes = self.changes( since );
+		for( var i in changes )
+		{
+			values[i] = self[i];
+		}
+		if( !('uuid' in values) && this.uuid )
+		{
+			values.uuid = this.uuid;
+		}
+		if( this.deleted )
+		{
+			values.deleted = this.deleted;
+		}
+		return values;
+	}
+	
 })();

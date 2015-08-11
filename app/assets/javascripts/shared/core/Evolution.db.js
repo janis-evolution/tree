@@ -162,7 +162,12 @@ Evolution.db =
 			storage = {};
 			for( var i in Evolution.classes )
 			{
-				storage[ i ] = Evolution.db.collect( i, filter );
+				var collection = Evolution.db.collect( i, filter );
+				storage[ i ] = {};
+				for( var id in collection )
+				{
+					storage[ i ][ id ] = collection[ id ].to_post_data( null );
+				}
 			}
 		}
 		localStorage.setItem( key, JSON.stringify( storage ) );
