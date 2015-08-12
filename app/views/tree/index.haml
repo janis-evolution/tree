@@ -6,9 +6,11 @@
 		.node{ 'data-uuid' => "{{uuid}}" }
 			.body
 				.hierarchy_no
-				.name Name
+				.id {{uuid}}
 				%button.btn-link{ :type => "button", :name => "add_before" } add
 				%button.btn-link{ :type => "button", :name => "add_after" } add
 				%button.btn-link{ :type => "button", :name => "add_child" } Add child
 				%button.btn-link{ :type => "button", :name => "destroy" } Destroy
 			.children
+
+= javascript_include_tag 'tree'

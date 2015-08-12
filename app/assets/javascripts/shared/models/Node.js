@@ -130,7 +130,8 @@
 	 */
 	Evolution[ class_name ].prototype.siblings = function()
 	{
-		return this.parent( true ).children();
+		var self = this;
+		return self.parent( true ).children().filter(function( candidate ){ return candidate.uuid != self.uuid });
 	}
 	
 	/*
@@ -164,7 +165,14 @@
 			child.destroy();
 		});
 		
-		return destroy.apply( this, arguments );
+		destroy.apply( this, arguments );
+		
+		// update sibling order numbers
+		var children_after = self.siblings().filter(function( candidate ){ return candidate.order_no > self.order_no });
+		children_after.foreach(function( child )
+		{
+			child.set( 'order_no', child.order_no - 1 );
+		});
 	}
 	
 	

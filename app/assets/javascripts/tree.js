@@ -31,20 +31,6 @@ jQuery(function()
 	// construct handlebars template
 	var node_template = Handlebars.compile( controller.find( 'script.node_template' ).html() );
 	
-	var find_or_create = function( node )
-	{
-		var dom_node = controller.find( '.node[data-uuid="' + node.uuid + '"]' );
-		var parent_dom_node = tree; // root level by default
-		if( node.parent() )
-		{
-			parent_dom_node = find_or_create( node.parent() );
-		}
-		if( dom_node.length == 0 )
-		{
-			parent_dom_node.children( '.children' ).append( node_template() );
-		}
-	}
-	
 	Evolution.Node.on( 'modify', function( changed_property )
 	{
 		var self = this;
@@ -79,7 +65,6 @@ jQuery(function()
 		// find dom node
 		var dom_node = controller.find( '.node[data-uuid="' + self.uuid + '"] > .body' );
 		dom_node.find( '.hierarchy_no' ).html( self.hierarchy_no() );
-		dom_node.find( '.name' ).html( self.uuid );
 		console.groupEnd();
 	});
 	
@@ -168,12 +153,6 @@ jQuery(function()
 		var node = Evolution.Node.find( node_id );
 		// destroy self
 		node.destroy();
-		// update next siblings
-		var children_after = node.siblings().filter(function( candidate ){ return candidate.order_no > node.order_no });
-		children_after.foreach(function( child )
-		{
-			child.set( 'order_no', child.order_no - 1 );
-		});
 		console.groupEnd();
 	});
 	
@@ -194,6 +173,26 @@ jQuery(function()
 		});
 	}
 	
+	var render_iterative = function( root )
+	{
+		var level = root.children();
+		var next_level = [];
+		while( level.length > 0 )
+		{
+			next_level = [];
+			level.foreach(function( node )
+			{
+				// collect children for next pass
+				next_level = next_level.concat( node.children() );
+				// add this node to dom
+				controller.find( '.node[data-uuid="' + node.parent( true ).uuid + '"] > .children' ).append( node_template( node ) );
+				node.trigger( 'mutate' );
+			});
+			level = next_level;
+		}
+	}
+	
 	render( root );
+	//render_iterative( root );
 	
 });
