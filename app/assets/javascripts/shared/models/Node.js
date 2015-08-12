@@ -135,6 +135,50 @@
 	}
 	
 	/*
+	 * create_child()
+	 */
+	Evolution[ class_name ].prototype.create_child = function()
+	{
+		var self = this;
+		var order_no = 0;
+		var children = self.children();
+		if( children.length > 0 )
+		{
+			order_no = children.pop().order_no + 1;
+		}
+		var new_child = new Evolution[ class_name ]({ parent_id: self.get_uuid(), order_no: order_no });
+		Evolution.db.insert( 'Node', new_child );
+		return new_child;
+	}
+	
+	/*
+	 * create_sibling()
+	 */
+	Evolution[ class_name ].prototype.create_sibling = function( before )
+	{
+		var self = this;
+		var order_no = self.order_no + 1;
+		if( before )
+		{
+			order_no--;
+		}
+		var new_sibling = new Evolution[ class_name ]({ parent_id: self.parent_id, order_no: order_no });
+		// update own order_no if new entry is inserted before this one
+		if( before )
+		{
+			self.set( 'order_no', self.order_no + 1 );
+		}
+		// update order no of all following children
+		var children_after = self.siblings().filter(function( candidate ){ return candidate.order_no >= order_no });
+		children_after.foreach(function( child )
+		{
+			child.set( 'order_no', child.order_no + 1 );
+		});
+		Evolution.db.insert( 'Node', new_sibling );
+		return new_sibling;
+	}
+	
+	/*
 	 * hierarchy_no()
 	 */
 	Evolution[ class_name ].prototype.hierarchy_no = function()

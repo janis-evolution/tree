@@ -87,15 +87,7 @@ jQuery(function()
 		var parent_node = target.parents( '.node' ).first();
 		var parent_id = parent_node.attr( 'data-uuid' );
 		var parent = Evolution.Node.find( parent_id );
-		if( parent_id == 'root' )
-		{
-			parent_id = null;
-		}
-		// find order no
-		var order_no = parent.children().length;
-		// create new Node entry
-		var node = new Evolution.Node({ parent_id: parent_id, order_no: order_no });
-		Evolution.db.insert( 'Node', node );
+		var node = parent.create_child();
 		var html = node_template( node );
 		parent_node.children( '.children' ).append( html );
 		node.trigger_modification();
@@ -108,29 +100,9 @@ jQuery(function()
 		console.group( '"' + target.attr( 'name' ) + '" clicked' );
 		// find parent
 		var insertion_node = target.parents( '.node' ).first();
-		var parent_node = insertion_node.parents( '.node' ).first();
-		var parent_id = parent_node.attr( 'data-uuid' );
 		var sibling = Evolution.Node.find( insertion_node.attr( 'data-uuid' ) );
-		var parent = Evolution.Node.find( parent_id );
-		if( parent_id == 'root' )
-		{
-			parent_id = null;
-		}
 		// find order no
-		var order_no = sibling.order_no;
-		if( target.attr( 'name' ) == 'add_after' )
-		{
-			order_no++;
-		}
-		// create new Node entry
-		var node = new Evolution.Node({ parent_id: parent_id, order_no: order_no });
-		// update order no of all following children
-		var children_after = node.siblings().filter(function( candidate ){ return candidate.order_no >= order_no });
-		children_after.foreach(function( child )
-		{
-			child.set( 'order_no', child.order_no + 1 );
-		});
-		Evolution.db.insert( 'Node', node );
+		var node = sibling.create_sibling( target.attr( 'name' ) == 'add_before' );
 		var html = node_template( node );
 		if( target.attr( 'name' ) == 'add_before' )
 		{

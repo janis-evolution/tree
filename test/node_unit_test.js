@@ -97,7 +97,25 @@ describe( "Node model", function()
 		expect( ids( a.children() ) ).toEqual( [ 'ab' ] );
 		expect( ids( a.descendants() ) ).toEqual( [ 'ab' ] );
 	});
-	
+	it( "creates children", function()
+	{
+		a.create_child();
+		expect( a.children().length ).toEqual( 3 );
+	});
+	it( "creates siblings after self", function()
+	{
+		aa.create_sibling();
+		expect( a.children().length ).toEqual( 3 );
+		expect( aa.order_no ).toEqual( 0 );
+		expect( ab.order_no ).toEqual( 2 );
+	});
+	it( "creates siblings before self", function()
+	{
+		aa.create_sibling( true );
+		expect( a.children().length ).toEqual( 3 );
+		expect( aa.order_no ).toEqual( 1 );
+		expect( ab.order_no ).toEqual( 2 );
+	});
 	
 });
 
