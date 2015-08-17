@@ -5,7 +5,7 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: './',
+    basePath: '../', // rake wrapper will put generated config file in "tmp/"
 
 
     // frameworks to use
@@ -15,17 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'build/jquery.js',
-      'build/jquery_ujs.js',
-      'build/handlebars.js',
-      'app/assets/javascripts/libraries/uuid.core.js',
-      'app/assets/javascripts/shared/core/Evolution.js',
-      'app/assets/javascripts/shared/core/Evolution.db.js',
-      'app/assets/javascripts/shared/core/Evolution.utils.js',
-      'app/assets/javascripts/shared/core/Base.js',
-      'app/assets/javascripts/core/Evolution.js',
-      'app/assets/javascripts/shared/models/Node.js',
-      'app/assets/javascripts/application.js',
+      APPLICATION_SPEC,
       'test/node_unit_test.js'
     ],
 

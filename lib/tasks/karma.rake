@@ -24,7 +24,7 @@ namespace :karma  do
   end
 
   def unit_js(files)
-    unit_js = File.open('karma.conf.js', 'r').read
+    unit_js = File.open('karma.conf.rake.js', 'r').read
     unit_js.gsub "APPLICATION_SPEC", "\"#{files.join("\",\n\"")}\""
   end
 end

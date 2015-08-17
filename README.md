@@ -1,5 +1,21 @@
 # Tree Assignment for Evolution Gaming
 
+## Static Run (no Rails)
+
+Setup instructions:
+
+    git clone git@github.com:janis-evolution/tree.git
+    cd tree
+    npm install
+
+To run the app, open ```index.html``` in a browser.
+
+To run tests:
+
+    ./node_modules/karma/bin/karma start
+
+## Full App
+
 This is a Ruby on Rails app. RVM was used in development, but it is not mandatory.
 
 Setup instructions:

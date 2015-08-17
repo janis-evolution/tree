@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"><title>Tree</title>
+		<link rel="stylesheet" media="all" href="build/bootstrap.css" data-turbolinks-track="true" />
+		<link rel="stylesheet" media="all" href="app/assets/stylesheets/tree.css" data-turbolinks-track="true" />
+		<link rel="stylesheet" media="all" href="app/assets/stylesheets/application.css" data-turbolinks-track="true" />
+		<script src="build/jquery.js" data-turbolinks-track="true"></script>
+		<script src="build/jquery_ujs.js" data-turbolinks-track="true"></script>
+		<script src="build/handlebars.js" data-turbolinks-track="true"></script>
+		<script src="app/assets/javascripts/libraries/uuid.core.js" data-turbolinks-track="true"></script>
+		<script src="app/assets/javascripts/shared/core/Evolution.js" data-turbolinks-track="true"></script>
+		<script src="app/assets/javascripts/shared/core/Evolution.db.js" data-turbolinks-track="true"></script>
+		<script src="app/assets/javascripts/shared/core/Evolution.utils.js" data-turbolinks-track="true"></script>
+		<script src="app/assets/javascripts/shared/core/Base.js" data-turbolinks-track="true"></script>
+		<script src="app/assets/javascripts/core/Evolution.js" data-turbolinks-track="true"></script>
+		<script src="app/assets/javascripts/shared/models/Node.js" data-turbolinks-track="true"></script>
+		<script src="app/assets/javascripts/application.js" data-turbolinks-track="true"></script>
+		<meta name="csrf-param" content="authenticity_token" />
+		<meta name="csrf-token" content="ZFtVo0wJVETuH0fgj+0Sekb0L5Y1i59rNg71db81bV4rMSHcy8jSJxRGl5Mcy6bsUJgmUZeWJRF1BwcZ55Ankw==" />
+	</head>
+	<body>
+		<div class="controller-tree">
+			<div class="tree node container" data-uuid="root">
+				<div class="children"></div>
+				<button class="btn-link" name="add_child" type="button">Create first node</button>
+			</div>
+			<script class="node_template" type="text/x-handlebars-template"><div class="node" data-uuid="{{uuid}}"><div class="body"><div class="hierarchy_no"></div><div class="id">{{uuid}}</div><button class="btn-link" name="add_before" type="button">add</button><button class="btn-link" name="add_after" type="button">add</button><button class="btn-link" name="add_child" type="button">Add child</button><button class="btn-link" name="destroy" type="button">Destroy</button></div><div class="children"></div></div></script>
+		</div>
+		<script src="app/assets/javascripts/tree.js"></script>
+	</body>
+</html>
